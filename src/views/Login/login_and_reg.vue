@@ -58,8 +58,11 @@
                 var uid = this.getcookie("guoyumeng_blog");
                 var data = new FormData();
                 data.append("uid",uid);
-                this.axios.post(that._path.php_path+"/php/check_user.php",data).then(res=>{
-                    this.username = res.data[0].username;
+
+                SDK.Ajax('/check_user.php',{
+                    uid: uid,
+                },data=>{
+                    this.username = data[0].username;
                 })
 
             }else{

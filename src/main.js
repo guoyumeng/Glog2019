@@ -15,8 +15,8 @@ Vue.use(ElementUI);
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.$axios = axios;
-import '../public/font/iconfont.css'
-import './components/SDK.js';
+import '../public/font/iconfont.css';
+import '../public/js/SDK.js';
 import _path from './components/_path.vue'; //引用文件
 Vue.prototype._path = _path; //挂载到Vue实例上面
 SDK.AjaxPath = _path.php_path;

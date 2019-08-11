@@ -113,13 +113,15 @@
             var that = this;
             this.dialogFormVisible = false;
 
-          	var data = new FormData();
-            data.append("title",this.form.title);
-            data.append("content",this.form.content);
-            data.append("class",this.form.class);
-            data.append("email",this.form.email);
-            this.axios.post(that._path.php_path+'/php/add_letter.php',data).then(res=>{
-                if (res.data == "OK") {
+            var parm = {
+                title: this.form.title,
+                content: this.form.content,
+                class: this.form.class,
+                email: this.form.email,
+            }
+
+            SDK.Ajax('/add_letter.php',parm,data=>{
+                if (data == "OK") {
                     this.$message({
                         type: 'success',
                         message: '发送成功，我看到会及时处理！'
@@ -131,53 +133,56 @@
                         email: '',
                     }
                 }
+
             })
+
         },
 
         getData(){
             var that = this;
-            this.axios.post(that._path.php_path+'/php/main_Get_Article_Important.php').then(res=>{
 
-                if(res.data.length > 0){
-                    for (let i = 0; i < res.data.length; i++) {
-                        res.data[i].publish_time = res.data[i].publish_time.substr(0,16);
+            SDK.Ajax('/main_Get_Article_Important.php',{},data=>{
 
-                        if (res.data[i].title.length>19) {
-                            res.data[i].title = res.data[i].title.substr(0,19)+'...'
+                if(data.length > 0){
+                    for (let i = 0; i < data.length; i++) {
+                        data[i].publish_time = data[i].publish_time.substr(0,16);
+
+                        if (data[i].title.length>19) {
+                            data[i].title = data[i].title.substr(0,19)+'...'
                         }
-                        if (res.data[i].content.length) {
+                        if (data[i].content.length) {
                             var re1 = new RegExp("<.+?>","g");//匹配html标签的正则表达式，"g"是搜索匹配多个符合的内容
-                            var msg = res.data[i].content.replace(re1,'');//执行替换成空字符
-                            res.data[i].content = msg;
+                            var msg = data[i].content.replace(re1,'');//执行替换成空字符
+                            data[i].content = msg;
                         }
-                        if (res.data[i].content.length>100) {
-                            res.data[i].content = res.data[i].content.substr(0,100)+'...'
+                        if (data[i].content.length>100) {
+                            data[i].content = data[i].content.substr(0,100)+'...'
                         }
                     }
                 }
-                this.important_list = res.data;
+                this.important_list = data;
             })
 
-            this.axios.post(that._path.php_path+'/php/main_Get_Article_Hot.php').then(res=>{
-
-                if(res.data.length > 0){
-                    for (let i = 0; i < res.data.length; i++) {
-                        res.data[i].publish_time = res.data[i].publish_time.substr(0,16);
+            SDK.Ajax('/main_Get_Article_Hot.php',{},data=>{
+                if(data.length > 0){
+                    for (let i = 0; i < data.length; i++) {
+                        data[i].publish_time = data[i].publish_time.substr(0,16);
 
                         
-                        if (res.data[i].content.length) {
+                        if (data[i].content.length) {
                             var re1 = new RegExp("<.+?>","g");//匹配html标签的正则表达式，"g"是搜索匹配多个符合的内容
-                            var msg = res.data[i].content.replace(re1,'');//执行替换成空字符
-                            res.data[i].content = msg;
+                            var msg = data[i].content.replace(re1,'');//执行替换成空字符
+                            data[i].content = msg;
                         }
-                        if (res.data[i].content.length>100) {
-                            res.data[i].content = res.data[i].content.substr(0,100)+'...'
+                        if (data[i].content.length>100) {
+                            data[i].content = data[i].content.substr(0,100)+'...'
                         }
                     }
                 }
-                this.hot_list = res.data;
+                this.hot_list = data;
                 this.hot_list.reverse();
             })
+
         },
 
         clickCard(data){

@@ -71,44 +71,49 @@
                         }
                     });
                 }
-                        
-                var data = new FormData();
-                data.append("cid",this.cid);
-                this.axios.post(that._path.php_path+'/php/main_Get_Article_Data.php',data).then(res=>{
 
-                    if(res.data.length > 0){
-                        for (let i = 0; i < res.data.length; i++) {
-                            res.data[i].publish_time = res.data[i].publish_time.substr(0,16);
-                            if (res.data[i].class.length > 0) {
-                                res.data[i].class = res.data[i].class.split(',');
+                var parm = {
+                    cid:this.cid,
+                }
+
+                SDK.Ajax('/main_Get_Article_Data.php',parm,data=>{
+
+                    if(data.length > 0){
+                        for (let i = 0; i < data.length; i++) {
+                            data[i].publish_time = data[i].publish_time.substr(0,16);
+                            if (data[i].class.length > 0) {
+                                data[i].class = data[i].class.split(',');
                             }else{
-                                res.data[i].class = [];
+                                data[i].class = [];
                             }
-                            if (res.data[i].content.length) {
+                            if (data[i].content.length) {
                                 var re1 = new RegExp("<.+?>","g");//匹配html标签的正则表达式，"g"是搜索匹配多个符合的内容
-                                var msg = res.data[i].content.replace(re1,'');//执行替换成空字符
-                                res.data[i].content = msg;
+                                var msg = data[i].content.replace(re1,'');//执行替换成空字符
+                                data[i].content = msg;
                             }
-                            if (res.data[i].content.length>130) {
-                                res.data[i].content = res.data[i].content.substr(0,130)+'......'
+                            if (data[i].content.length>130) {
+                                data[i].content = data[i].content.substr(0,130)+'......'
                             }
                         }
                     }
-                    this.listData = res.data;
+                    this.listData = data;
 
                     for (let i = 0; i < this.listData.length; i++) {
                         for (let v = 0; v < this.listData[i].class.length; v++) {
-                            var data = new FormData();
-                            data.append("cid",this.listData[i].class[v]);
-                            this.axios.post(that._path.php_path+'/php/get_class_data.php',data).then(res=>{
-                                if(res.data.length > 0){
-                                    this.listData[i].class.push(res.data[0].class_name);
+                            var parm = {
+                                cid:this.listData[i].class[v],
+                            };
+                            SDK.Ajax('/get_class_data.php',parm,data=>{
+                                if(data.length > 0){
+                                    this.listData[i].class.push(data[0].class_name);
                                     this.listData[i].class.shift();
                                 }
                             })
+
                         }
                     }
                 })
+
             }
         },
         mounted(){

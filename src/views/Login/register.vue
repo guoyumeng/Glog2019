@@ -106,57 +106,48 @@
                 });
             }else{
 
-                $.ajax({
-                    url:that._path.php_path+'/php/check_user_reg.php',//url路径
-                    type:'POST', //GET
-                    async:false, //或false,是否异步
-                    dataType:'json', //返回的数据格式：
-                    data:{//参数
-                        "username":this.username,
-                    },
-                
-                    success:function(data){
-                        if(data.length !== 0){
-                            that.$message({
-                                message: '用户名已存在，请重新选择用户名。',
-                                type: 'error'
-                            });
-                        }else{
+                SDK.Ajax('/check_user_reg.php',{
+                    "username":that.username,
+                },data=>{
+                    if(data.length !== 0){
+                        that.$message({
+                            message: '用户名已存在，请重新选择用户名。',
+                            type: 'error'
+                        });
+                    }else{
 
-                                var data = new FormData();
-                                data.append("username",that.username);
-                                data.append("password",that.password);
-                                data.append("sex",that.sex);
-                                data.append("imageUrl",that.imageUrl);
+                        that.sendReg();
 
-                                data.append("province",'NULL');
-                                data.append("city",'NULL');
-                                data.append("register_ip",'NULL');
-                                
-                                // 将数据提交至服务器
-                                that.axios.post(that._path.php_path+"/php/user_reg.php",data).then(res=>{
-                                    that.$message({
-                                        message: '注册成功！请登录。',
-                                        type: 'success'
-                                    });
-                                    window.setTimeout(() => {
-                                        window.location.assign("/login");
-                                    },2000)
-                                })
-                                
-
-
-
-                        }
-                        
-                        
                     }
                 })
 
-                
             }
             
         },
+        sendReg(){
+            var that = this;
+            var parm = {
+                username: that.username,
+                password: that.password,
+                sex: that.sex,
+                imageUrl: that.imageUrl,
+                province: "null",
+                city: "null",
+                register_ip: "null",
+            };
+            console.log(parm);
+            
+            SDK.Ajax('/user_reg.php',parm,data=>{
+
+                that.$message({
+                    message: '注册成功！请登录。',
+                    type: 'success'
+                });
+                window.setTimeout(() => {
+                    window.location.assign("/login");
+                },2000)
+            })
+        }
         
 
     },

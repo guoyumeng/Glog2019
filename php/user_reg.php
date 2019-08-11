@@ -13,11 +13,15 @@
 
 
 
-        mysql_query("INSERT INTO users 
+      $isok =  mysql_query("INSERT INTO users 
         (username, password, sex, imageUrl, register_data, province, city, register_ip)
             VALUES
         ('$username', '$password', '$sex', '$imageUrl', NOW(), '$province', '$city', '$register_ip')");
 
+
+        $arrdata = array();
+
+        echo json_encode($arrdata);
 
     
     

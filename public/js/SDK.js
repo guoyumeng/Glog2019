@@ -70,6 +70,12 @@ window.SDK = {
         }
     },
 
+    // Axios:function (path,data,func) {
+    //     console.log(axios);
+        
+    //     axios.post(SDK.AjaxPath+path,data).then(func);
+    // },
+
     // 自动调整移动端宽度比例
     AutoWidth: function (width) {
         !function(designWidth){
@@ -107,8 +113,6 @@ window.SDK = {
 
     // 发起AJAX请求
     Ajax: function (url,parm,func,async) {
-        console.log(SDK.AjaxPath+"/php/"+url,parm);
-        
         $.ajax({
             url: SDK.AjaxPath+"/php/"+url,
             data: parm,

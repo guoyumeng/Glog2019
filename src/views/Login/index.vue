@@ -60,19 +60,20 @@
         
         login(){
             var that = this;
-            var data = new FormData();
-            data.append("username",this.username);
-            data.append("password",this.password);
-            this.axios.post(that._path.php_path+"/php/login.php",data).then(res=>{
-                if(res.data.length > 0 && res.data[0].state == 0){
+
+            SDK.Ajax('/login.php',{
+                username: username,
+                password: password,
+            },data=>{
+                if(data.length > 0 && data[0].state == 0){
                     
-                    this.setcookie("guoyumeng_blog",res.data[0].uid,7);
+                    this.setcookie("guoyumeng_blog",data[0].uid,7);
                     this.$message({
                         message: '登陆成功！正在为你跳转至首页。',
                         type: 'success'
                     });
                     window.location.assign("/")
-                }else if(res.data.length > 0){
+                }else if(data.length > 0){
                     this.$message({
                         message: '用户已被停用，请联系管理员或重新注册。',
                         type: 'error'
@@ -83,8 +84,8 @@
                         type: 'error'
                     });
                 }
-                
             })
+
         },
 
         setcookie(key,value,days) {

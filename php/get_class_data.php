@@ -7,11 +7,6 @@
     }else{
         $result = mysql_query("SELECT * FROM class");
     }
-    
-
-    
-
-    
 
     $arrdata = array();
 
