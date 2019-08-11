@@ -16,8 +16,8 @@
                 $type = 'png';
             }
 
-			$filename = $dir . $unix . $type;
-			$urlname = '/data/UP_img/' . $unix . $type;
+			$filename = $dir . $unix . '.' . $type;
+			$urlname = '/data/UP_img/' . $unix . '.' . $type;
 			$is = move_uploaded_file( $file['tmp_name'], $filename);
 			if( !$is ){
 				die('上传失败');
