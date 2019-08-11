@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-public/data/UP_img
+public/images/upload/
 /dist
 
 # local env files

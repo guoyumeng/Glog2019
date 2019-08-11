@@ -215,17 +215,14 @@
                                 success:function(data){
                                     if (data.length == 0) {
                                         res.data[i].username = "用户已注销"
-                                        res.data[i].headPortrait = "/data/pic/user-none.png"
+                                        res.data[i].headPortrait = "/images/user-none.png"
                                     }else if (!data[0].imageUrl){
                                         res.data[i].username = data[0].username;
-                                        res.data[i].headPortrait = "/data/pic/user-default.png"
+                                        res.data[i].headPortrait = "/images/user-default.png"
                                     }else{
                                         res.data[i].username = data[0].username;
                                         res.data[i].headPortrait = data[0].imageUrl;
                                     }
-                                    
-                                    
-                                    
                                 }
                             })
                             

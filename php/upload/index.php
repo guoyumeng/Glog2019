@@ -2,7 +2,7 @@
 	require "../conn.php";
 	
 	$key = 'file';
-    $dir = '../../public/data/UP_img/';
+    $dir = '../../public/images/upload/';
     $type = '';
 	
 	$unix = time();
@@ -17,7 +17,7 @@
             }
 
 			$filename = $dir . $unix . '.' . $type;
-			$urlname = '/data/UP_img/' . $unix . '.' . $type;
+			$urlname = '/images/upload/' . $unix . '.' . $type;
 			$is = move_uploaded_file( $file['tmp_name'], $filename);
 			if( !$is ){
 				die('上传失败');
