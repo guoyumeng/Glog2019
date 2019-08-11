@@ -22,8 +22,8 @@ Vue.prototype._path = _path; //挂载到Vue实例上面
 SDK.AjaxPath = _path.php_path;
 
 new Vue({
-  router,
-  render: h => h(App)
+    router,
+    render: h => h(App)
 }).$mount('#app')
 
 
