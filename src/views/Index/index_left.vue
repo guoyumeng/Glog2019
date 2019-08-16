@@ -2,7 +2,19 @@
 
     <div id="index_main_left">
         <!-- 卡片循环区 -->
-        <el-card class="box-card" v-for="(data,index) in listData" :key="index" shadow="hover" style="border-radius: 0">
+        <el-carousel height="200px" class="banner-box">
+            <el-carousel-item>
+                <div class="banner-item"></div>
+            </el-carousel-item>
+            <el-carousel-item>
+                <div class="banner-item"></div>
+            </el-carousel-item>
+            <el-carousel-item>
+                <div class="banner-item"></div>
+            </el-carousel-item>
+        </el-carousel>
+        <br>
+        <el-card class="box-card" v-for="(data,index) in listData" :key="index" shadow="hover">
             <div slot="header" class="clearfix">
                 <span style="font-weight:bold;color:#333333;cursor:pointer" @click="clickCard(data)">{{ data.title }}</span>
                 <el-tag v-for="(sdata,index2) in data.class" size="medium" :key="index2" style="margin-left: 10px; float:right;cursor:pointer">{{ sdata }}</el-tag>
@@ -194,6 +206,15 @@
         margin-right:10px;
     }
 
+    .banner-box{
+        border-radius: 3px;
+    }
+
+    .banner-item{
+        width: 100%;
+        height: 100%;
+        background-color: skyblue;
+    }
     
     
 </style>

@@ -52,8 +52,8 @@
             data.append("password",this.password);
 
             SDK.Ajax('/login.php',{
-                username: username,
-                password: password,
+                username: that.username,
+                password: that.password,
             },data=>{
                 if(data.length > 0 && data[0].state == 0){
                     

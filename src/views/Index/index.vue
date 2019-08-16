@@ -1,7 +1,7 @@
 <template>
     <el-container id="wrapper" style="background-color:#e6ecf0">
         <!-- 前台头部区域 -->
-        <el-header style="margin:0;padding:0;position:fixed;background-color:#545c64;width:100%;">
+        <el-header style="margin:0;padding:0;position:fixed;background-color:#545c64;width:100%;z-index:100">
             
             <el-menu
             :default-active="$route.path"
@@ -9,7 +9,7 @@
             mode="horizontal"
             @select="handleSelect"
             :router="true"
-            style="width:1000px; margin:0 auto;height:60px"
+            style="width:95%; margin:0 auto;height:60px"
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b">
@@ -35,8 +35,26 @@
 
             <div v-else id="header_user">
                 <el-dropdown style="cursor:pointer">
-                    <span class="el-dropdown-link">{{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
+                    <span class="el-dropdown-link">{{ username }}
+
+                        <i class="lv-tag">LV1</i>
+                        <b class="vip-tag" v-if="vip == 'v'">VIP</b>
+                        <b class="vip-tag" v-if="vip == 'v1'">VIP1</b>
+                        <b class="vip-tag" v-if="vip == 'v2'">VIP2</b>
+                        <b class="vip-tag" v-if="vip == 'v3'">VIP3</b>
+                        <b class="vip-tag" v-if="vip == 'v4'">VIP4</b>
+                        <b class="vip-tag" v-if="vip == 'v5'">VIP5</b>
+                        <b class="svip-tag" v-if="vip == 's'">SVIP</b>
+                        <b class="svip-tag" v-if="vip == 's1'">SVIP1</b>
+                        <b class="svip-tag" v-if="vip == 's2'">SVIP2</b>
+                        <b class="svip-tag" v-if="vip == 's3'">SVIP3</b>
+                        <b class="svip-tag" v-if="vip == 's4'">SVIP4</b>
+                        <b class="svip-tag" v-if="vip == 's5'">SVIP5</b>
+                        <b class="aut-tag" v-if="vip == 'aut'">AUT</b>
+
+                        <i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
+                    
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item disabled>个人中心</el-dropdown-item>
                         <el-dropdown-item disabled>我的收藏</el-dropdown-item>
@@ -85,6 +103,7 @@
     data() {
       return {
         username: '',
+        vip:'',
         activeIndex: '1',
         activeIndex2: '1',
         search_input: '',
@@ -120,6 +139,7 @@
                 data.append("uid",uid);
                 this.axios.post(that._path.php_path+"/php/check_user.php",data).then(res=>{
                     this.username = res.data[0].username;
+                    this.vip = res.data[0].vip;
                 })
 
             }else{
@@ -208,25 +228,41 @@
 
 <style lang="scss" scoped>
 
-
+    .vip-tag{
+        color:red;
+        margin: 0 5px;
+    }
+    .svip-tag{
+        color:gold;
+        margin: 0 5px;
+    }
+    .aut-tag{
+        color:deepskyblue;
+        margin: 0 5px;
+    }
+    .lv-tag{
+        font-style: normal;
+        margin: 0 5px;
+        font-size: 12px;
+        border: 1px solid rgba(255,255,255,0.5);
+        padding: 0 3px;
+    }
 
     #index_main{
-        width:1000px;
+        width:95%;
         margin: 0 auto;
         margin-top: 60px;
 
     }
 
     #right{
-        width:320px;
-
-        height: 90%;
-        
-        position: fixed;
-        left: 50%;
-
-        margin-top: 60px;
-        margin-left: 180px;
+            width: 31.5%;
+            height: 90%;
+            position: fixed;
+            left: 66%;
+            margin-top: 60px;
+            margin-left: 0;
+            z-index: 10;
 
     }
     #write_email{

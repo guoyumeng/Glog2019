@@ -10,11 +10,6 @@
                     <br>
                     <el-input class="input" v-model="rep_pass" size="small" show-password placeholder="重复密码"></el-input>
                     <br>
-                    <el-select class="input" disabled v-model="mibao" placeholder="请选择密保问题">
-                        <el-option label="你的学校是哪" value="你的学校是哪"></el-option>
-                        <el-option label="你的学校是哪2" value="你的学校是哪2"></el-option>
-                    </el-select>
-                    <br>
                     <span>
                         <el-radio v-model="sex" label="男">男</el-radio>
                         <el-radio v-model="sex" label="女">女</el-radio>
@@ -38,7 +33,7 @@
             </div>
             <div id="main_bottom">
                 <div>
-                    <p>已有 Glog 账号?<a href="/login">现在登录 <i class="el-icon-d-arrow-right"></i></a></p>
+                    <p>已有 Glog 账号? <a href="/login">现在登录 <i class="el-icon-d-arrow-right"></i></a></p>
                     <p>
                         <a href="/read">服务条款</a>
                         <span> 和 隐私政策 暂未修订。</span>    
@@ -58,7 +53,6 @@
             rep_pass: '',
             sex: '',
             imageUrl: '',
-            mibao:"",
       };
     },
     methods: {

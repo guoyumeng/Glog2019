@@ -17,7 +17,7 @@
             }
 
 			$filename = $dir . $unix . '.' . $type;
-			$urlname = '/images/upload/' . $unix . '.' . $type;
+            $urlname = '/images/upload/' . $unix . '.' . $type;
 			$is = move_uploaded_file( $file['tmp_name'], $filename);
 			if( !$is ){
 				die('上传失败');

@@ -3,18 +3,15 @@
 
         <el-header style="margin:0;padding:0;position:fixed;width:100%;z-index: 1000;background-color:#fff">
             <el-menu
-            :default-active="$route.path"
-            class="el-menu-demo"
-            mode="horizontal"
-            :router="true"
-            style="width:800px;margin:0 auto">
-            <el-menu-item index="/login">登录</el-menu-item>
-            <el-menu-item index="/register">注册</el-menu-item>
-            <el-menu-item index="/read">注册协议</el-menu-item>
-            <el-menu-item index="/">回到主站</el-menu-item>
-
-
-   
+                :default-active="$route.path"
+                class="el-menu-demo"
+                mode="horizontal"
+                :router="true"
+                style="width:800px;margin:0 auto">
+                <el-menu-item index="/login">登录</el-menu-item>
+                <el-menu-item index="/register">注册</el-menu-item>
+                <el-menu-item index="/read">注册协议</el-menu-item>
+                <el-menu-item index="/">回到主站</el-menu-item>
             </el-menu>
 
 
@@ -35,9 +32,6 @@
     data() {
       return {
         username: '',
-
-
-        
       };
     },
     methods: {
@@ -54,8 +48,8 @@
 
         check_login(){
             var that = this;
-            if (this.getcookie("guoyumeng_blog")) {
-                var uid = this.getcookie("guoyumeng_blog");
+            if (SDK.getCookie("guoyumeng_blog")) {
+                var uid = SDK.getCookie("guoyumeng_blog");
                 var data = new FormData();
                 data.append("uid",uid);
 
@@ -70,19 +64,6 @@
             }
         },
 
-        setcookie(key,value,days) {
-            var d = new Date();
-            d.setDate(d.getDate() + days);
-            document.cookie = key+'='+encodeURIComponent(value)+';expires=' + d;
-        },
-
-        signOut(){
-
-            this.setcookie('guoyumeng_blog','1000',-1);
-            this.$message('用户已退出。');
-            this.check_login();
-        },
-
         login(){
             window.location.assign("/join/")
         }
@@ -93,39 +74,26 @@
         
         // 延时调整一次
         window.setTimeout(function() {
-            
-
             if (document.getElementById("main")) {
                 document.getElementById("main").style.height = (document.documentElement.clientHeight) + "px";
             }
-            
-            
-
         },0)
 
         window.onresize=function(){
             if (document.getElementById("main")) {
                 document.getElementById("main").style.height = (document.documentElement.clientHeight) + "px";
             }
-            
-            
         };
-        
     }
 }
 </script>
 
 <style scoped>
-
-
-
     #index_main{
         width:800px;
         margin: 0 auto;
         margin-top: 60px;
+        margin-bottom: 0px !important;
     }
 
-
-
-    
 </style>

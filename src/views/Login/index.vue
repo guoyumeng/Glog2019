@@ -28,19 +28,17 @@
         </div>
         <div id="footer">
             <p>
-                <a href="#">关于</a>
-                <a href="#">帮助中心</a>
-                <a href="#">博客</a>
-                <a href="#">状态</a>
-                <a href="#">条款</a>
-                <a href="#">隐私政策</a>
-                <a href="#">Cookies</a>
+                <a href="">关于</a>
+                <a href="">帮助中心</a>
+                <a href="">状态</a>
+                <a href="">条款</a>
+                <a href="">隐私政策</a>
                 <a href="/">主站</a>
-                <a href="#">应用</a>
-                <a href="#">广告</a>
+                <a href="">应用</a>
+                <a href="">广告</a>
                 <a href="/admin/">后台管理</a>
-                <a href="#">目录</a>
-                <a href="#">设置</a>
+                <a href="">目录</a>
+                <a href="">设置</a>
                 <a>© 2019 Glog</a>
             </p>
         </div>
@@ -61,48 +59,39 @@
         login(){
             var that = this;
 
-            SDK.Ajax('/login.php',{
-                username: username,
-                password: password,
-            },data=>{
-                if(data.length > 0 && data[0].state == 0){
-                    
-                    this.setcookie("guoyumeng_blog",data[0].uid,7);
-                    this.$message({
-                        message: '登陆成功！正在为你跳转至首页。',
-                        type: 'success'
-                    });
-                    window.location.assign("/")
-                }else if(data.length > 0){
-                    this.$message({
-                        message: '用户已被停用，请联系管理员或重新注册。',
-                        type: 'error'
-                    });
-                }else{
-                    this.$message({
-                        message: '用户名或密码错误，如果忘记密码请重新注册或联系管理员。',
-                        type: 'error'
-                    });
-                }
-            })
-
+            if (that.username && that.password) {
+                SDK.Ajax('/login.php',{
+                    username: that.username,
+                    password: that.password,
+                },data=>{
+                    if(data.length > 0 && data[0].state == 0){
+                        
+                        SDK.setCookie("guoyumeng_blog",data[0].uid);
+                        this.$message({
+                            message: '登陆成功！正在为你跳转至首页。',
+                            type: 'success'
+                        });
+                        window.location.assign("/")
+                    }else if(data.length > 0){
+                        this.$message({
+                            message: '用户已被停用，请联系管理员或重新注册。',
+                            type: 'error'
+                        });
+                    }else{
+                        this.$message({
+                            message: '用户名或密码错误，如果忘记密码请重新注册或联系管理员。',
+                            type: 'error'
+                        });
+                    }
+                })
+            }else{
+                this.$message({
+                    message: '请将用户名和密码输入完整。',
+                    type: 'warning'
+                });
+            }
         },
 
-        setcookie(key,value,days) {
-            var d = new Date();
-            d.setDate(d.getDate() + days);
-            document.cookie = key+'='+encodeURIComponent(value)+';expires=' + d + ";path=/";
-        },
-
-        getcookie(key){
-	    	var cookiearr=decodeURIComponent(document.cookie).split('; ');
-	    	for(var i=0;i<cookiearr.length;i++){
-	    		var newcookiearr=cookiearr[i].split('=');
-	    		if(key==newcookiearr[0]){
-	    			return newcookiearr[1];
-	    		}
-	    	}
-        },
 
         reg_btn(){
             window.location.assign("/register");
@@ -116,15 +105,11 @@
         
         // 延时调整一次
         window.setTimeout(function() {
-
             document.getElementById("main").style.height = (document.documentElement.clientHeight) * 14/15 + "px";
-
             $("#logo_bg").css("line-height",(document.documentElement.clientHeight) * 14/15 + "px");
             $("#logo_bg").css("font-size",(document.documentElement.clientHeight) * 17/15 + "px");
-            
             document.getElementById("footer").style.height = document.documentElement.clientHeight * 1/15 + "px";
-
-        },0)
+        })
 
         window.onresize=function(){
             document.getElementById("main").style.height = (document.documentElement.clientHeight) * 14/15 + "px";
@@ -267,7 +252,6 @@
                 text-decoration: none;
                 color: #909399;
                 font-size: 12px;
-                
             }
             a:hover{
                 text-decoration: underline;
