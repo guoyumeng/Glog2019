@@ -13,7 +13,7 @@
     "babel-polyfill": "^6.26.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.11.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "tinymce": "^5.0.13",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
